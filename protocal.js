@@ -14,7 +14,6 @@ const ENUM_PROTOCAL =
     "PROTOCAL_C2S_YAKYUKEN":1110,
     "PROTOCAL_S2C_ALL_YAKUKEN":1111,
 
-    "S2C_RESULT":1113,
 };
 
 module.exports =
