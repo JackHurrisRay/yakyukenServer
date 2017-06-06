@@ -2,6 +2,8 @@
  * Created by Jack.L on 2017/6/6.
  */
 
+var MSG = require('./message');
+
 var CALLBACK_RECV =
 {
     "100":
@@ -12,7 +14,7 @@ var CALLBACK_RECV =
     "1000"://conn
     function(data)
     {
-
+        console.log('client jion');
     },
     "1100":
     function(data)
@@ -44,7 +46,12 @@ module.exports =
 
                     if( callback )
                     {
+                        //
                         callback(data);
+
+                        //test
+                        MSG.sendMsg(ws, MSG.createMSG('OK'));
+
                     }
                     else
                     {
@@ -53,7 +60,7 @@ module.exports =
                 },
                 onClose:function(ws)
                 {
-
+                    console.log('client lieave');
                 }
             };
 

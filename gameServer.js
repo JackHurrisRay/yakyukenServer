@@ -5,9 +5,7 @@ var WebSocket = require('ws').Server;
 
 var base64 = require('./base64');
 var gameLogic = require('./gameLogic');
-var message   = require('./message');
-var PROTOCAL  = message.PROTOCAL;
-var MSG       = message.Message;
+var MessageData   = require('./message');
 
 module.exports =
     (
@@ -17,6 +15,8 @@ module.exports =
             var websocket = new WebSocket(
                 {port:PORT}
             );
+
+            var MSG       = MessageData.MESSAGE;
 
             var instance =
             {
@@ -50,9 +50,11 @@ module.exports =
                                     if( _resultData && _resultData['protocal'] )
                                     {
                                         const protocal  = _resultData['protocal'];
-                                        const msgModule = MSG[protocal.toString()];
+                                        const protocal_name = MessageData.findProtocalNameFromValue(protocal);
 
-                                        if( msgModule && message.checkMessage(msgModule, _resultData) )
+                                        const msgModule = MSG[protocal_name];
+
+                                        if( msgModule && MessageData.checkMessage(msgModule, _resultData) )
                                         {
                                             check = true;
                                         }
@@ -74,7 +76,7 @@ module.exports =
                             ws.on('close',
                                 function(message)
                                 {
-
+                                    gameLogic.onClose(ws);
                                 });
                         }
                     );
